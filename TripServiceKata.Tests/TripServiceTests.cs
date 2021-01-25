@@ -10,11 +10,28 @@ namespace TripServiceKata.Tests
         [Fact]
         public void GetTripsByUser_ViewingAsGuestUser_ThrowsException()
         {
-            var sut = new TripService();
+            User guestUser = null;
+
+            var sut = new TestableTripService(guestUser);
 
             var someUser = new User();
 
             Assert.Throws<UserNotLoggedInException>(() => sut.GetTripsByUser(someUser));
+        }
+
+        internal class TestableTripService : TripService
+        {
+            private readonly User _loggedInUser;
+
+            public TestableTripService(User loggedInUser)
+            {
+                _loggedInUser = loggedInUser;
+            }
+
+            protected override User GetLoggedInUser()
+            {
+                return _loggedInUser;
+            }
         }
     }
 }

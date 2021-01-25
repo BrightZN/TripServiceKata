@@ -10,7 +10,7 @@ namespace TripServiceKata.Trips
         {
             var tripList = new List<Trip>();
 
-            var loggedUser = UserSession.Instance.GetLoggedUser();
+            var loggedUser = GetLoggedInUser();
 
             bool isFriend = false;
 
@@ -36,6 +36,11 @@ namespace TripServiceKata.Trips
             {
                 throw new UserNotLoggedInException();
             }
+        }
+
+        protected virtual User GetLoggedInUser()
+        {
+            return UserSession.Instance.GetLoggedUser();
         }
     }
 }

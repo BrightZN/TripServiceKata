@@ -14,11 +14,9 @@ namespace TripServiceKata.Trips
             if (No(loggedInUser))
                 throw new UserNotLoggedInException();
 
-            bool isFriend = user.FriendsWith(loggedInUser);
-
             var trips = new List<Trip>();
 
-            if (isFriend)
+            if (user.FriendsWith(loggedInUser))
             {
                 trips = TripDao.FindTripsByUser(user);
             }

@@ -11,10 +11,10 @@ namespace TripServiceKata.Trips
 
             var loggedInUser = GetLoggedInUser();
 
-            bool isFriend = false;
-
             if (No(loggedInUser))
                 throw new UserNotLoggedInException();
+
+            bool isFriend = false;
 
             foreach (User friend in user.Friends)
             {

@@ -16,8 +16,6 @@ namespace TripServiceKata.Trips
             if (No(loggedInUser))
                 throw new UserNotLoggedInException();
 
-            var trips = new List<Trip>();
-
             foreach (User friend in user.Friends)
             {
                 if (friend.Equals(loggedInUser))
@@ -26,6 +24,8 @@ namespace TripServiceKata.Trips
                     break;
                 }
             }
+
+            var trips = new List<Trip>();
 
             if (isFriend)
             {

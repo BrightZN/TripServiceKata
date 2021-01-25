@@ -8,7 +8,6 @@ namespace TripServiceKata.Trips
     {
         public List<Trip> GetTripsByUser(User user)
         {
-            var tripList = new List<Trip>();
 
             var loggedInUser = GetLoggedInUser();
 
@@ -16,6 +15,8 @@ namespace TripServiceKata.Trips
 
             if (No(loggedInUser))
                 throw new UserNotLoggedInException();
+
+            var trips = new List<Trip>();
 
             foreach (User friend in user.Friends)
             {
@@ -28,10 +29,10 @@ namespace TripServiceKata.Trips
 
             if (isFriend)
             {
-                tripList = TripDao.FindTripsByUser(user);
+                trips = TripDao.FindTripsByUser(user);
             }
 
-            return tripList;
+            return trips;
         }
 
         private static bool No(User loggedInUser)

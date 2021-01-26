@@ -13,11 +13,11 @@ namespace TripServiceKata.Tests
         {
             User guestUser = null;
 
-            var sut = new TestableTripService(guestUser);
+            var sut = new TestableTripService();
 
             var someUser = new User();
 
-            Assert.Throws<UserNotLoggedInException>(() => sut.GetTripsByUser(someUser));
+            Assert.Throws<UserNotLoggedInException>(() => sut.GetTripsByUser(someUser, guestUser));
         }
 
         [Fact]
@@ -33,25 +33,45 @@ namespace TripServiceKata.Tests
 
             var loggedInUser = new User();
 
-            var sut = new TestableTripService(loggedInUser);
+            var sut = new TestableTripService();
 
-            var trips = sut.GetTripsByUser(someUser);
+            var trips = sut.GetTripsByUser(someUser, loggedInUser);
 
             Assert.Empty(trips);
         }
 
-        internal class TestableTripService : TripService
+        [Fact]
+        public void GetTripsByUser_ViewingFriendAsLoggedInUser_ReturnsTrips()
         {
-            private readonly User _loggedInUser;
+            var loggedInUser = new User();
 
-            public TestableTripService(User loggedInUser)
+            var friend = new User
             {
-                _loggedInUser = loggedInUser;
-            }
+                Friends = new List<User>
+                {
+                    loggedInUser
+                },
+                Trips = new List<Trip>
+                {
+                    new Trip(),
+                    new Trip()
+                }
 
-            protected override User GetLoggedInUser()
+            };
+
+            var sut = new TestableTripService();
+
+            var trips = sut.GetTripsByUser(friend, loggedInUser);
+            
+            Assert.NotNull(trips);
+        }
+
+        private class TestableTripService : TripService
+        {
+
+            protected override List<Trip> TripsBy(User user)
             {
-                return _loggedInUser;
+                return user.Trips;
             }
         }
     }

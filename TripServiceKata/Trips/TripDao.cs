@@ -6,8 +6,13 @@ using TripServiceKata.Users;
 
 namespace TripServiceKata.Trips
 {
-    public class TripDao
+    public class TripDao : ITripDao
     {
+        public List<Trip> FindTripsFor(User user)
+        {
+            return FindTripsByUser(user);
+        }
+        
         public static List<Trip> FindTripsByUser(User _)
         {
             throw new DependentClassCallException(

@@ -13,7 +13,7 @@ namespace TripServiceKata.Tests
         {
             User guestUser = null;
 
-            var sut = new TestableTripService();
+            var sut = new TripService(new InMemoryTripDao());
 
             var someUser = new User();
 
@@ -33,7 +33,7 @@ namespace TripServiceKata.Tests
 
             var loggedInUser = new User();
 
-            var sut = new TestableTripService();
+            var sut = new TripService(new InMemoryTripDao());
 
             var trips = sut.GetTripsByUser(someUser, loggedInUser);
 
@@ -56,20 +56,18 @@ namespace TripServiceKata.Tests
                     new Trip(),
                     new Trip()
                 }
-
             };
 
-            var sut = new TestableTripService();
+            var sut = new TripService(new InMemoryTripDao());
 
             var trips = sut.GetTripsByUser(friend, loggedInUser);
             
             Assert.NotNull(trips);
         }
 
-        private class TestableTripService : TripService
+        private class InMemoryTripDao : ITripDao
         {
-
-            protected override List<Trip> TripsBy(User user)
+            public List<Trip> FindTripsFor(User user)
             {
                 return user.Trips;
             }

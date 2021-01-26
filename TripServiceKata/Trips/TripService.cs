@@ -30,10 +30,5 @@ namespace TripServiceKata.Trips
         {
             return loggedInUser == null;
         }
-
-        protected virtual User GetLoggedInUser()
-        {
-            return UserSession.Instance.GetLoggedUser();
-        }
     }
 }

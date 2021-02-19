@@ -13,7 +13,9 @@ namespace TripServiceKata.Trips
 
             bool isFriend = false;
 
-            if (loggedInUser != null)
+            if (loggedInUser == null)
+                throw new UserNotLoggedInException();
+            else
             {
                 foreach (User friend in user.Friends)
                 {
@@ -30,10 +32,6 @@ namespace TripServiceKata.Trips
                 }
 
                 return tripList;
-            }
-            else
-            {
-                throw new UserNotLoggedInException();
             }
         }
 

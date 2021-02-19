@@ -11,7 +11,7 @@ namespace TripServiceKata.Users
         public List<User> Friends { get; set; } = new List<User>();
         public List<Trip> Trips { get; set; } = new List<Trip>();
 
-        internal bool FriendsWith(User loggedInUser)
+        public bool FriendsWith(User loggedInUser)
         {
             foreach (var friend in Friends)
                 if (friend.Equals(loggedInUser))

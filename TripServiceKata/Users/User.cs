@@ -8,7 +8,7 @@ namespace TripServiceKata.Users
 {
     public class User
     {
-        public List<User> Friends { get; } = new List<User>();
-        public List<Trip> Trips { get; } = new List<Trip>();
+        public List<User> Friends { get; set; } = new List<User>();
+        public List<Trip> Trips { get; set; } = new List<Trip>();
     }
 }

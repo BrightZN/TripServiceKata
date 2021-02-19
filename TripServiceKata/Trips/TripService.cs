@@ -8,15 +8,14 @@ namespace TripServiceKata.Trips
     {
         public List<Trip> GetTripsByUser(User user)
         {
-            var tripList = new List<Trip>();
             var loggedInUser = GetLoggedInUser();
-
-            bool isFriend = false;
 
             if (loggedInUser == null)
                 throw new UserNotLoggedInException();
             else
             {
+                bool isFriend = false;
+
                 foreach (User friend in user.Friends)
                 {
                     if (friend.Equals(loggedInUser))
@@ -25,6 +24,8 @@ namespace TripServiceKata.Trips
                         break;
                     }
                 }
+
+                var tripList = new List<Trip>();
 
                 if (isFriend)
                 {

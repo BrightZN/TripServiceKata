@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TripServiceKata.Exceptions;
 using TripServiceKata.Trips;
 using TripServiceKata.Users;
@@ -15,6 +16,28 @@ namespace TripServiceKata.Tests
             var userBeingViewed = new User();
 
             Assert.Throws<UserNotLoggedInException>(() => sut.GetTripsByUser(userBeingViewed));
+        }
+
+        [Fact]
+        public void GetTripsByUser_ViewerNotFriendsWithUserBeingViewed_ReturnsEmptyTripList()
+        {
+            var loggedInUser = new User();
+
+            var sut = new TestableTripService(loggedInUser);
+
+            var userBeingViewed = new User 
+            { 
+                Trips = new List<Trip> 
+                { 
+                    new Trip(),
+                    new Trip(),
+                    new Trip()
+                } 
+            };
+
+            var trips = sut.GetTripsByUser(userBeingViewed);
+
+            Assert.Empty(trips);
         }
 
         class TestableTripService : TripService

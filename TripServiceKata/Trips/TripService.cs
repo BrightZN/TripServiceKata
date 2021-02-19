@@ -4,11 +4,11 @@ using TripServiceKata.Users;
 
 namespace TripServiceKata.Trips
 {
-    public class TripService
+    public sealed class TripService
     {
-        private readonly TripDao _tripDao;
+        private readonly ITripDao _tripDao;
 
-        public TripService(TripDao tripDao)
+        public TripService(ITripDao tripDao)
         {
             _tripDao = tripDao;
         }
@@ -25,6 +25,6 @@ namespace TripServiceKata.Trips
 
         private static List<Trip> NoTrips() => new List<Trip>();
 
-        protected virtual List<Trip> FindTripsBy(User user) => _tripDao.FindTripsBy(user);
+        private List<Trip> FindTripsBy(User user) => _tripDao.FindTripsBy(user);
     }
 }

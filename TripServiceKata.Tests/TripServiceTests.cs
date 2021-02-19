@@ -72,8 +72,8 @@ namespace TripServiceKata.Tests
         }
     }
 
-    internal class InMemoryTripDao : TripDao
+    internal class InMemoryTripDao : ITripDao
     {
-        public override List<Trip> FindTripsBy(User user) => user.Trips;
+        public List<Trip> FindTripsBy(User user) => user.Trips;
     }
 }

@@ -21,10 +21,7 @@ namespace TripServiceKata.Tests
         {
             private readonly User _loggedInUser;
 
-            public TestableTripService(User loggedInUser)
-            {
-                _loggedInUser = loggedInUser;
-            }
+            public TestableTripService(User loggedInUser) => _loggedInUser = loggedInUser;
 
             protected override User GetLoggedInUser() => _loggedInUser;
         }

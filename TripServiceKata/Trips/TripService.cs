@@ -14,8 +14,13 @@ namespace TripServiceKata.Trips
                 throw new UserNotLoggedInException();
 
             return user.FriendsWith(loggedInUser) 
-                ? TripDao.FindTripsByUser(user) 
+                ? FindTripsBy(user) 
                 : new List<Trip>();
+        }
+
+        protected virtual List<Trip> FindTripsBy(User user)
+        {
+            return TripDao.FindTripsByUser(user);
         }
 
         protected virtual User GetLoggedInUser()

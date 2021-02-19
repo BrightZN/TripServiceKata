@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TripServiceKata.Exceptions;
 using TripServiceKata.Trips;
 using TripServiceKata.Users;
@@ -43,6 +44,32 @@ namespace TripServiceKata.Tests
             
             Assert.Empty(trips);
         }
+
+        [Fact]
+        public void GetTripsByUser_LoggedInUserViewingFriend_ReturnsTripListWithTrips()
+        {
+            var loggedInUser = new User();
+            
+            var sut = new TestableTripService(loggedInUser);
+
+            var userBeingViewed = new User
+            {
+                Friends =
+                {
+                    new User(),
+                    loggedInUser
+                },
+                Trips =
+                {
+                    new Trip(),
+                    new Trip()
+                }
+            };
+
+            var trips = sut.GetTripsByUser(userBeingViewed);
+            
+            Assert.Equal(userBeingViewed.Trips, trips);
+        }
     }
 
     public class TestableTripService : TripService
@@ -55,5 +82,7 @@ namespace TripServiceKata.Tests
         }
 
         protected override User GetLoggedInUser() => _loggedInUser;
+
+        protected override List<Trip> FindTripsBy(User user) => user.Trips;
     }
 }

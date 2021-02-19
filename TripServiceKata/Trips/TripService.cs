@@ -25,16 +25,13 @@ namespace TripServiceKata.Trips
                     }
                 }
 
-                var tripList = new List<Trip>();
-
-                if (isFriend)
-                {
-                    tripList = TripDao.FindTripsByUser(user);
-                }
-
-                return tripList;
+                return isFriend 
+                    ? FindTripsBy(user) 
+                    : new List<Trip>();
             }
         }
+
+        protected virtual List<Trip> FindTripsBy(User user) => TripDao.FindTripsByUser(user);
 
         protected virtual User GetLoggedInUser() => UserSession.Instance.GetLoggedUser();
     }

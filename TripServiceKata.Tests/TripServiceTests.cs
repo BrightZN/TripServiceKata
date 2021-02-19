@@ -40,6 +40,32 @@ namespace TripServiceKata.Tests
             Assert.Empty(trips);
         }
 
+        [Fact]
+        public void GetTripsByUser_ViewerFriendsWithUserBeingViewed_ReturnsTripList()
+        {
+            var loggedInUser = new User();
+
+            var sut = new TestableTripService(loggedInUser);
+
+            var userBeingViewed = new User
+            {
+                Friends = new List<User>
+                {
+                    loggedInUser
+                },
+                Trips = new List<Trip>
+                {
+                    new Trip(),
+                    new Trip(),
+                    new Trip()
+                }
+            };
+
+            var trips = sut.GetTripsByUser(userBeingViewed);
+
+            Assert.Equal(userBeingViewed.Trips, trips);
+        }
+
         class TestableTripService : TripService
         {
             private readonly User _loggedInUser;
@@ -47,6 +73,8 @@ namespace TripServiceKata.Tests
             public TestableTripService(User loggedInUser) => _loggedInUser = loggedInUser;
 
             protected override User GetLoggedInUser() => _loggedInUser;
+
+            protected override List<Trip> FindTripsBy(User user) => user.Trips;
         }
     }
 }

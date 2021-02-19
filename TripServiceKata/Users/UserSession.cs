@@ -11,12 +11,6 @@ namespace TripServiceKata.Users
 
         public static UserSession Instance { get; } = new UserSession();
 
-        public bool IsUserLoggedIn(User _)
-        {
-            throw new DependentClassCallException(
-                "UserSession.IsUserLoggedIn() should not be called in an unit test");
-        }
-
         public User GetLoggedUser()
         {
             throw new DependentClassCallException(

@@ -6,6 +6,13 @@ namespace TripServiceKata.Trips
 {
     public class TripService
     {
+        private readonly TripDao _tripDao;
+
+        public TripService(TripDao tripDao)
+        {
+            _tripDao = tripDao;
+        }
+
         public List<Trip> GetTripsByUser(User user, User loggedInUser)
         {
             if (loggedInUser == null)
@@ -18,6 +25,9 @@ namespace TripServiceKata.Trips
 
         private static List<Trip> NoTrips() => new List<Trip>();
 
-        protected virtual List<Trip> FindTripsBy(User user) => TripDao.FindTripsByUser(user);
+        protected virtual List<Trip> FindTripsBy(User user)
+        {
+            return _tripDao.FindTripsBy(user);
+        }
     }
 }

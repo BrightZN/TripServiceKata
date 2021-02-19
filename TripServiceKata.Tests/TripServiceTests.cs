@@ -11,7 +11,7 @@ namespace TripServiceKata.Tests
         [Fact]
         public void GetTripsByUser_ViewerNotLoggedIn_ThrowsException()
         {
-            var sut = new TestableTripService();
+            var sut = new TripService(new TestTripDao());
 
             var userBeingViewed = new User();
 
@@ -23,7 +23,7 @@ namespace TripServiceKata.Tests
         {
             var loggedInUser = new User();
 
-            var sut = new TestableTripService();
+            var sut = new TripService(new TestTripDao());
 
             var userBeingViewed = new User 
             { 
@@ -45,7 +45,7 @@ namespace TripServiceKata.Tests
         {
             var loggedInUser = new User();
 
-            var sut = new TestableTripService();
+            var sut = new TripService(new TestTripDao());
 
             var userBeingViewed = new User
             {
@@ -66,9 +66,9 @@ namespace TripServiceKata.Tests
             Assert.Equal(userBeingViewed.Trips, trips);
         }
 
-        class TestableTripService : TripService
+        class TestTripDao : TripDao
         {
-            protected override List<Trip> FindTripsBy(User user) => user.Trips;
+            public override List<Trip> FindTripsBy(User user) => user.Trips;
         }
     }
 }

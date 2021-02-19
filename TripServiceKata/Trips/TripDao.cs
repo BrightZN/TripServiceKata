@@ -8,6 +8,8 @@ namespace TripServiceKata.Trips
 {
     public class TripDao
     {
+        public virtual List<Trip> FindTripsBy(User user) => FindTripsByUser(user);
+
         public static List<Trip> FindTripsByUser(User _)
         {
             throw new DependentClassCallException(

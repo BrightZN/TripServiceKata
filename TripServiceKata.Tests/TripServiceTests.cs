@@ -13,7 +13,7 @@ namespace TripServiceKata.Tests
         {
             User loggedOutUser = null;
             
-            var sut = new TestableTripService();
+            var sut = new TripService(new InMemoryTripDao());
 
             var userBeingViewed = new User();
 
@@ -25,7 +25,7 @@ namespace TripServiceKata.Tests
         {
             var loggedInUser = new User();
             
-            var sut = new TestableTripService();
+            var sut = new TripService(new InMemoryTripDao());
 
             var userBeingViewed = new User
             {
@@ -50,7 +50,7 @@ namespace TripServiceKata.Tests
         {
             var loggedInUser = new User();
             
-            var sut = new TestableTripService();
+            var sut = new TripService(new InMemoryTripDao());
 
             var userBeingViewed = new User
             {
@@ -72,8 +72,8 @@ namespace TripServiceKata.Tests
         }
     }
 
-    public class TestableTripService : TripService
+    internal class InMemoryTripDao : TripDao
     {
-        protected override List<Trip> FindTripsBy(User user) => user.Trips;
+        public override List<Trip> FindTripsBy(User user) => user.Trips;
     }
 }

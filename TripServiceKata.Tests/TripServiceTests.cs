@@ -13,11 +13,11 @@ namespace TripServiceKata.Tests
         {
             User loggedOutUser = null;
             
-            var sut = new TestableTripService(loggedOutUser);
+            var sut = new TestableTripService();
 
             var userBeingViewed = new User();
 
-            Assert.Throws<UserNotLoggedInException>(() => sut.GetTripsByUser(userBeingViewed));
+            Assert.Throws<UserNotLoggedInException>(() => sut.GetTripsByUser(userBeingViewed, loggedOutUser));
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace TripServiceKata.Tests
         {
             var loggedInUser = new User();
             
-            var sut = new TestableTripService(loggedInUser);
+            var sut = new TestableTripService();
 
             var userBeingViewed = new User
             {
@@ -40,7 +40,7 @@ namespace TripServiceKata.Tests
                 }
             };
 
-            var trips = sut.GetTripsByUser(userBeingViewed);
+            var trips = sut.GetTripsByUser(userBeingViewed, loggedInUser);
             
             Assert.Empty(trips);
         }
@@ -50,7 +50,7 @@ namespace TripServiceKata.Tests
         {
             var loggedInUser = new User();
             
-            var sut = new TestableTripService(loggedInUser);
+            var sut = new TestableTripService();
 
             var userBeingViewed = new User
             {
@@ -66,7 +66,7 @@ namespace TripServiceKata.Tests
                 }
             };
 
-            var trips = sut.GetTripsByUser(userBeingViewed);
+            var trips = sut.GetTripsByUser(userBeingViewed, loggedInUser);
             
             Assert.Equal(userBeingViewed.Trips, trips);
         }
@@ -74,15 +74,6 @@ namespace TripServiceKata.Tests
 
     public class TestableTripService : TripService
     {
-        private readonly User _loggedInUser;
-
-        public TestableTripService(User loggedInUser)
-        {
-            _loggedInUser = loggedInUser;
-        }
-
-        protected override User GetLoggedInUser() => _loggedInUser;
-
         protected override List<Trip> FindTripsBy(User user) => user.Trips;
     }
 }

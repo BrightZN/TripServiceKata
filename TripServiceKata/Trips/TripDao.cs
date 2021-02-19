@@ -6,7 +6,7 @@ using TripServiceKata.Users;
 
 namespace TripServiceKata.Trips
 {
-    public class TripDao
+    public class TripDao : ITripDao
     {
         public virtual List<Trip> FindTripsBy(User user) => FindTripsByUser(user);
 

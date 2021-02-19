@@ -66,9 +66,9 @@ namespace TripServiceKata.Tests
             Assert.Equal(userBeingViewed.Trips, trips);
         }
 
-        class TestTripDao : TripDao
+        class TestTripDao : ITripDao
         {
-            public override List<Trip> FindTripsBy(User user) => user.Trips;
+            public List<Trip> FindTripsBy(User user) => user.Trips;
         }
     }
 }

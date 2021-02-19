@@ -6,9 +6,9 @@ namespace TripServiceKata.Trips
 {
     public class TripService
     {
-        private readonly TripDao _tripDao;
+        private readonly ITripDao _tripDao;
 
-        public TripService(TripDao tripDao)
+        public TripService(ITripDao tripDao)
         {
             _tripDao = tripDao;
         }

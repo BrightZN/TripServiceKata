@@ -6,10 +6,8 @@ namespace TripServiceKata.Trips
 {
     public class TripService
     {
-        public List<Trip> GetTripsByUser(User user)
+        public List<Trip> GetTripsByUser(User user, User loggedInUser)
         {
-            var loggedInUser = GetLoggedInUser();
-
             if (loggedInUser == null)
                 throw new UserNotLoggedInException();
 
@@ -21,7 +19,5 @@ namespace TripServiceKata.Trips
         private static List<Trip> NoTrips() => new List<Trip>();
 
         protected virtual List<Trip> FindTripsBy(User user) => TripDao.FindTripsByUser(user);
-
-        protected virtual User GetLoggedInUser() => UserSession.Instance.GetLoggedUser();
     }
 }

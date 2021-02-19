@@ -12,10 +12,10 @@ namespace TripServiceKata.Trips
 
             if (loggedInUser == null)
                 throw new UserNotLoggedInException();
-            else
-                return user.FriendsWith(loggedInUser)
-                    ? FindTripsBy(user)
-                    : NoTrips();
+
+            return user.FriendsWith(loggedInUser)
+                ? FindTripsBy(user)
+                : NoTrips();
         }
 
         private static List<Trip> NoTrips() => new List<Trip>();
